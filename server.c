@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/08 14:47:31 by msainton          #+#    #+#             */
-/*   Updated: 2021/12/10 17:20:45 by msainton         ###   ########.fr       */
+/*   Created: 2021/12/11 16:55:11 by msainton          #+#    #+#             */
+/*   Updated: 2021/12/11 17:12:03 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main()
 
 	pid = getpid();
 
-	yo.sa_sigaction = send_msg;
+//	yo.sa_sigaction = send_msg;
 	yo.sa_flags = SA_SIGINFO;
 	sigemptyset(&yo.sa_mask);
 	sigaction(SIGUSR1, &yo, NULL);

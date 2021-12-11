@@ -1,9 +1,14 @@
-SRCS		= server.c		\
-			  client.c
+SRCS_C		= server.c		\
+			  
+SRCS_S		= client.c		\
 
-OBJS		= ${SRCS:.c=.o}
+OBJS_C		= ${SRCS_C:.c=.o}
 
-NAME		= minitalk.a
+OBJS_S		= ${SRCS_S:.c=.o}
+
+NAME_C		= client
+
+NAME_S		= server
 
 CC			= gcc
 
@@ -11,23 +16,23 @@ CCFLAGS 	= -Wall -Werror -Wextra
 
 INCLUDES	= -I./includes -I./libft
 
-all:		${NAME}
+all:		${NAME_C} ${NAME_S}
 
 
-${NAME}:	$(OBJS)
+${NAME_C}:	$(OBJS_C)
 			$(MAKE) bonus -C ./libft
-			cp ./libft/libft.a $(NAME)
-			ar -r $(NAME) $(OBJS)
-			gcc -o minitalk $(CCFLAGS) $(NAME)
-			ranlib $(NAME)
+			gcc -L./libft $(CCFLAGS) $(OBJS_C) -o $(NAME_C)
+
+${NAME_S}:	$(OBJS_S)
+			gcc $(CCFLAGS) $(OBJS_S) -o $(NAME_S)
 
 clean:	
 					$(MAKE) clean -C ./libft
-					rm -f ${OBJS}
+					rm -f ${OBJS_C} ${OBJS_S}
 
 fclean:		clean
 					$(MAKE) fclean -C ./libft
-					rm -f ${NAME}
+					rm -f ${NAME_C} ${NAME_S}
 
 re:			fclean all
 
