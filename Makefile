@@ -1,6 +1,6 @@
-SRCS_C		= server.c		\
+SRCS_C		= client.c		\
 			  
-SRCS_S		= client.c		\
+SRCS_S		= server.c		\
 
 OBJS_C		= ${SRCS_C:.c=.o}
 
@@ -21,10 +21,10 @@ all:		${NAME_C} ${NAME_S}
 
 ${NAME_C}:	$(OBJS_C)
 			$(MAKE) bonus -C ./libft
-			gcc -L./libft $(CCFLAGS) $(OBJS_C) -o $(NAME_C)
+			gcc -L./libft/ $(CCFLAGS) $(OBJS_C) ./libft/libft.a -o $(NAME_C)
 
 ${NAME_S}:	$(OBJS_S)
-			gcc $(CCFLAGS) $(OBJS_S) -o $(NAME_S)
+			gcc -L./libft/ $(CCFLAGS) $(OBJS_S) ./libft/libft.a -o $(NAME_S)
 
 clean:	
 					$(MAKE) clean -C ./libft

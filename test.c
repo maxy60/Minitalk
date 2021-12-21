@@ -10,7 +10,8 @@ int main()
 	{
 		if (1 & (c >> i))
 			printf("yo %d\n", i);
-		printf("hello %d\n", i);
+		else
+			printf("hello %d\n", i);
 		i--;
 	}
 }

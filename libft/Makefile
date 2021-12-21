@@ -60,7 +60,7 @@ CCFLAGS 	= -Wall -Werror -Wextra
 all:		${NAME}
 
 ${NAME}: 	$(OBJS)
-			@ar -rcs $@ $(OBJS)
+			ar -rcs $@ $(OBJS)
 clean:
 					rm -f ${OBJSB}
 
