@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:55:20 by msainton          #+#    #+#             */
-/*   Updated: 2021/12/20 16:06:08 by msainton         ###   ########.fr       */
+/*   Updated: 2021/12/21 11:53:07 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ void	send_byte(char c, int pid)
 	int		i;
 
 	i = 0;	
-	while (i < 8)
+	while (i <= 8)
 	{
-		if (c && (1 << i++))
+		if (c & (1 << i))
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
+		i++;
 	}
 }
 
@@ -33,7 +34,7 @@ void	send_str(char *str, int pid)
 	a = 0;
 	while (str[a])
 	{
-		send_byte(str[a], pid)
+		send_byte(str[a], pid);
 		a++;
 	}
 }

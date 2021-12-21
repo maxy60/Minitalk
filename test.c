@@ -5,12 +5,12 @@ int main()
 	int i;
 	char c = '1';
 
-	i = 0;
-	while (i < 8)
+	i = 7;
+	while (i >= 0)
 	{
-		if (c & (2 << i++))
-			printf("test   %d  \n", i);
-		printf("je suis rentre   %d  \n", i);
+		if (1 & (c >> i))
+			printf("yo %d\n", i);
+		printf("hello %d\n", i);
+		i--;
 	}
 }
-http://www.bien-programmer.fr/bits.htm

@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:55:11 by msainton          #+#    #+#             */
-/*   Updated: 2021/12/20 16:10:52 by msainton         ###   ########.fr       */
+/*   Updated: 2021/12/21 12:08:42 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,18 @@
 
 int		ft_bytes(int sig)
 {
-	if (sig == SIGUSR1)
-		
-	else (sig == SIGUSR2)
+	char	*bytes;
+	int		i;
+
+	if (i < 8)
+	{
+		if (sig == SIGUSR1)
+			*bytes |= (1 << i++);
+		else (sig == SIGUSR2)
+			*bytes |= (0 << i++);
+			
+		i++;
+	}
 }
 
 void	send_msg(int sig, siginfo_t *info, void *ucontext)
