@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:55:20 by msainton          #+#    #+#             */
-/*   Updated: 2021/12/21 15:53:34 by msainton         ###   ########.fr       */
+/*   Updated: 2021/12/22 16:26:59 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	send_byte(char c, int pid)
 {
 	int		i;
 
-	i = 7;	
+	i = 7;
 	while (i >= 0)
 	{
 		if (1 & (c >> i))
