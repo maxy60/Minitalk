@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxime <maxime@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:55:11 by msainton          #+#    #+#             */
-/*   Updated: 2021/12/22 16:23:10 by msainton         ###   ########.fr       */
+/*   Updated: 2021/12/30 10:53:34 by maxime           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+#include <stdio.h>
 
 char    *ft_strcjoin(char *str, char c)
 {
@@ -29,41 +30,50 @@ char    *ft_strcjoin(char *str, char c)
 		a++;
 		dest[a] = c;
         dest[a + 1] = '\0';
+		if (str)
+			free(str);
         return (dest);
 }
 
-char	ft_bytes(int sig)
+int	ft_bytes(char bytes, int sig)
 {
-	int		i;
-	char	bytes;
+	static int		i;
 
-	i = 7;
-	bytes = 0;
-	while (i >= 0)
+	i = 0;
+	if (i == 8)
+	{
+		bytes = 0;
+		i = 0;
+	}	
+	//while (i >= 0)
+	if (i < 8)
 	{
 		if (sig == SIGUSR1)
-			bytes |= (1 << i);
+			bytes |= (1 << i++);
 		else if (sig == SIGUSR2)
-			bytes |= (0 << i);
-		i--;
+			bytes |= (0 << i++);
+		//i--;
 	}
-	return (bytes);
-}
-
-char	*my_str(int sig)
-{
-	char	*str;
-	int		i;
-
-	*str = ft_bytes(sig);
-	while (*str != 0)
-		str = ft_strcjoin(str, ft_bytes(sig));
-	return (str);
+	return (i);
 }
 
 void	send_msg(int sig, siginfo_t *info, void *ucontext)
 {
-	ft_putstr(my_str(sig));
+	static char	*s;
+	static char c;
+	int		i;
+
+	c = 0;
+	(void)ucontext;
+	i = ft_bytes(c, sig);
+	if (i == 8 && c)
+		s = ft_strcjoin(s, c);
+	if (i == 8 && !c)
+	{
+		ft_putnbr(info->si_pid);
+		ft_putstr(s);
+	}
+	printf("test");
 }
 
 int	main()
@@ -73,14 +83,15 @@ int	main()
 
 	pid = getpid();
 
-	yo.sa_sigaction = send_msg;
 	yo.sa_flags = SA_SIGINFO;
 	sigemptyset(&yo.sa_mask);
+	yo.sa_sigaction = send_msg;
 	sigaction(SIGUSR1, &yo, NULL);
 	sigaction(SIGUSR2, &yo, NULL);
 	printf("%d\n", pid);
 	while (1)
 	{
-		sleep(100);
+		pause();
 	}
+	return (0);
 }
