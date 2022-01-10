@@ -22,7 +22,7 @@
 char	*ft_strcjoin(char *str, char c);
 
 int		ft_byte(char byte, int signal);
-void	send_msg(int signal, siginfo_t *info, void *context);
+void	send_msg(int sig, siginfo_t *info, void *context);
 
 void	send_byte(char c, int pid);
 void	send_str(char *str, int pid);

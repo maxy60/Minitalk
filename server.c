@@ -50,13 +50,17 @@ void	send_msg(int sig, siginfo_t *info, void *context)
 	{
 		if (bit == '\0')
 			write(1, &"\n", 1);
-		write(1, &bit, sizeof(char));
-		//ft_strcjoin(str, (char)bit);
+		//write(1, &bit, sizeof(char));
+		str = ft_strcjoin(str, (char)bit);
 		pos = 0;
 		bit = 0;
 	}
-	//printf("%s\n", str);
-	
+	else
+	{
+		ft_putstr(str);
+		free(str);
+		str = NULL;
+	}
 }
 
 /*void	send_msg(int sig, siginfo_t *info, void *ucontext)
