@@ -19,15 +19,20 @@ char    *ft_strcjoin(char *str, char c)
         size_t  a;
 
         a = 0;
-        dest = (char *)malloc(sizeof(char) * ft_strlen(str) + 2);
-        if (!dest)
-                return (NULL);
-        while (str[a])
-        {
+		if (str)
+		{
+        	dest = (char *)malloc(sizeof(char) * ft_strlen(str) + 2);
+        	while (str[a])
+        	{
                 dest[a] = str[a];
                 a++;
-        }
-		a++;
+        	}
+			a++;
+		}
+		else
+			dest = (char *)malloc(sizeof(char) * 2);
+		if (!dest)
+			return (NULL);
 		dest[a] = c;
         dest[a + 1] = '\0';
 		if (str)
@@ -43,13 +48,15 @@ void	send_msg(int sig, siginfo_t *info, void *context)
 
 	(void)info;
 	(void)context;
+	if (!str)
+		str = NULL;
 	if (sig == SIGUSR1)
 		bit += 1 << (7 - pos);
 	pos++;
 	if (pos == 8)
 	{
 		if (bit == '\0')
-			write(1, &"\n", 1);
+			ft_putchar('\n');
 		//write(1, &bit, sizeof(char));
 		str = ft_strcjoin(str, (char)bit);
 		pos = 0;
@@ -62,26 +69,6 @@ void	send_msg(int sig, siginfo_t *info, void *context)
 		str = NULL;
 	}
 }
-
-/*void	send_msg(int sig, siginfo_t *info, void *ucontext)
-{
-	static char	*s;
-	static int	c;
-	int		i;
-
-	c = 0;
-	(void)ucontext;
-	//i = ft_bytes(c, sig);
-	
-	if (i == 8 && c)
-		s = ft_strcjoin(s, c);
-	if (i == 8 && !c)
-	{
-		ft_putnbr(info->si_pid);
-		ft_putstr(s);
-	}
-	printf("test");
-}*/
 
 int	main()
 {
