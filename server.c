@@ -35,37 +35,40 @@ char    *ft_strcjoin(char *str, char c)
         return (dest);
 }
 
-int	ft_bytes(char bytes, int sig)
+void	send_msg(int sig, siginfo_t *info, void *context)
 {
-	static int		i;
+	static int	pos;
+	static int	bit;
+	static char	*str;
 
-	i = 0;
-	if (i == 8)
+	(void)info;
+	(void)context;
+	if (sig == SIGUSR1)
+		bit += 1 << (7 - pos);
+	pos++;
+	if (pos == 8)
 	{
-		bytes = 0;
-		i = 0;
-	}	
-	//while (i >= 0)
-	if (i < 8)
-	{
-		if (sig == SIGUSR1)
-			bytes |= (1 << i++);
-		else if (sig == SIGUSR2)
-			bytes |= (0 << i++);
-		//i--;
+		if (bit == '\0')
+			write(1, &"\n", 1);
+		write(1, &bit, sizeof(char));
+		//ft_strcjoin(str, (char)bit);
+		pos = 0;
+		bit = 0;
 	}
-	return (i);
+	//printf("%s\n", str);
+	
 }
 
-void	send_msg(int sig, siginfo_t *info, void *ucontext)
+/*void	send_msg(int sig, siginfo_t *info, void *ucontext)
 {
 	static char	*s;
-	static char c;
+	static int	c;
 	int		i;
 
 	c = 0;
 	(void)ucontext;
-	i = ft_bytes(c, sig);
+	//i = ft_bytes(c, sig);
+	
 	if (i == 8 && c)
 		s = ft_strcjoin(s, c);
 	if (i == 8 && !c)
@@ -74,7 +77,7 @@ void	send_msg(int sig, siginfo_t *info, void *ucontext)
 		ft_putstr(s);
 	}
 	printf("test");
-}
+}*/
 
 int	main()
 {
@@ -90,8 +93,6 @@ int	main()
 	sigaction(SIGUSR2, &yo, NULL);
 	printf("%d\n", pid);
 	while (1)
-	{
 		pause();
-	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

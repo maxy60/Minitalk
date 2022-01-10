@@ -17,8 +17,8 @@ void	send_byte(char c, int pid)
 {
 	int		i;
 
-	i = 8;
-	while (i > 0)
+	i = 7;
+	while (i >= 0)
 	{
 		if (1 & (c >> i))
 			kill(pid, SIGUSR1);
@@ -37,7 +37,6 @@ void	send_str(char *str, int pid)
 	while (str[a])
 	{
 		send_byte(str[a], pid);
-		printf("%c\n", str[a]);
 		a++;
 	}
 	send_byte(0, pid);
