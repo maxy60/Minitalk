@@ -6,11 +6,11 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:40:31 by msainton          #+#    #+#             */
-/*   Updated: 2022/01/11 17:42:42 by msainton         ###   ########.fr       */
+/*   Updated: 2022/01/11 19:15:05 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 #include <stdio.h>
 
 void	send_byte(char c, int pid)
@@ -42,10 +42,19 @@ void	send_str(char *str, int pid)
 	send_byte(0, pid);
 }
 
+void    message_sent(int sig, siginfo_t *info, void *context)
+{
+	if (sig == SIGUSR1)
+		ft_putstr("message sent");
+}
+
 int	main(int argc, char **argv)
 {
 	int	pid;
+	struct sigaction	te;
 
+	te.sa_sigaction = message_sent;
+	sigaction(SIGUSR1, &te, NULL);
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);

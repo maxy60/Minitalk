@@ -6,11 +6,11 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:41:56 by msainton          #+#    #+#             */
-/*   Updated: 2022/01/11 18:11:09 by msainton         ###   ########.fr       */
+/*   Updated: 2022/01/11 19:28:33 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 #include <stdio.h>
 
 char	*ft_strcjoin(char *str, char c)
@@ -46,7 +46,6 @@ void	send_msg(int sig, siginfo_t *info, void *context)
 	static int	bit;
 	static char	*str;
 
-	(void)info;
 	(void)context;
 	if (!str)
 		str = NULL;
@@ -66,6 +65,7 @@ void	send_msg(int sig, siginfo_t *info, void *context)
 		ft_putstr(str);
 		free(str);
 		str = NULL;
+        //kill(info->si_pid, SIGUSR1);
 	}
 }
 
