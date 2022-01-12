@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:40:31 by msainton          #+#    #+#             */
-/*   Updated: 2022/01/12 18:08:19 by msainton         ###   ########.fr       */
+/*   Updated: 2022/01/12 18:49:03 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	message_sent(int sig)
 
 int	ft_num(char *str)
 {
-	int a;
+	int	a;
 
 	a = 0;
 	while (str[a])

@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:55:20 by msainton          #+#    #+#             */
-/*   Updated: 2022/01/12 18:05:51 by msainton         ###   ########.fr       */
+/*   Updated: 2022/01/12 18:49:15 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	send_str(char *str, int pid)
 
 int	ft_num(char *str)
 {
-	int a;
+	int	a;
 
 	a = 0;
 	while (str[a])
