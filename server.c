@@ -6,7 +6,7 @@
 /*   By: msainton <msainton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:55:11 by msainton          #+#    #+#             */
-/*   Updated: 2022/01/11 17:34:57 by msainton         ###   ########.fr       */
+/*   Updated: 2022/01/12 18:07:34 by msainton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*ft_strcjoin(char *str, char c)
 			dest[a] = str[a];
 			a++;
 		}
-		a++;
 	}
 	else
 		dest = (char *)malloc(sizeof(char) * 2);
@@ -58,14 +57,14 @@ void	send_msg(int sig, siginfo_t *info, void *context)
 		if (bit == '\0')
 			ft_putchar('\n');
 		str = ft_strcjoin(str, (char)bit);
+		if (pos == 8 && bit == '\0')
+		{
+			ft_putstr(str);
+			free(str);
+			str = NULL;
+		}
 		pos = 0;
 		bit = 0;
-	}
-	else
-	{
-		ft_putstr(str);
-		free(str);
-		str = NULL;
 	}
 }
 
@@ -84,7 +83,6 @@ int	main(int ac, char **av)
 		sigaction(SIGUSR2, &yo, NULL);
 		ft_putstr("pid: ");
 		ft_putnbr(pid);
-		ft_putchar('\n');
 		while (1)
 			pause();
 		return (EXIT_SUCCESS);
